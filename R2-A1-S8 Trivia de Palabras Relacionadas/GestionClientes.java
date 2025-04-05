@@ -14,27 +14,27 @@ System.out.println("3. Salir");
 
 {
   opcion = Interger.parseInt(scanner.nextLine());
-  switch (opcion) {
-    case 1: //Opcion de insertar cliente
-      System.out.print("Digite la Cedula del cliente: ");
-      String cedula=scanner.nextLine();
-      System.out.print("Ingrese el nombre del cliente: ");
-      String nombre=scanner.nextLine();
+    switch (opcion) {
+      case 1: //Opcion de insertar cliente
+        System.out.print("Digite la Cedula del cliente: ");
+        String cedula=scanner.nextLine();
+        System.out.print("Ingrese el nombre del cliente: ");
+        String nombre=scanner.nextLine();
 
   Clientes nuevoCliente = new Clientes(cedula,nombre);
-  lsita.insertarOrden(nuevoCliente);
-  break;
-    case 2: //Opcion mostrar lista clientes
-      lista.listarClientes();
-  break;
-    case 3: // opcion salir
-      System.out.println("Se cerro el programa");
-  break;
-default;
-  System.out.println(Opcion no valida. Intente de nuevo");
+    lista.insertarOrden(nuevoCliente);
+    break;
+      case 2: //Opcion mostrar lista clientes
+        lista.listarClientes();
+    break;
+      case 3: // opcion salir
+        System.out.println("Se cerro el programa");
+    break;
+    default;
+        System.out.println(Opcion no valida. Intente de nuevo");
+          }
+        }
+    }while (opcion !=3);
+      scanner.close();
   }
-}
-}while (opcion !=3);
-scanner.close();
-}
 }

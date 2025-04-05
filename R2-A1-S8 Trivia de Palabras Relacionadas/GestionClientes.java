@@ -7,6 +7,7 @@ int opcion;
 
 //Menu de opciones
 do {
+do{
 System.out.println("Sistema de Clientes ");
 System.out.println("1. Añadir Cliente");
 System.out.println("2. Lista de Clientes");

@@ -6,7 +6,6 @@ ListaClientes lista = new ListaClientes();
 int opcion;
 
 //Menu de opciones
-do {
 do{
 System.out.println("Sistema de Clientes ");
 System.out.println("1. Añadir Cliente");

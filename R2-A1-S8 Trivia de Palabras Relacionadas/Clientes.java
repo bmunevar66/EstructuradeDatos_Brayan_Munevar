@@ -1,4 +1,4 @@
-class Cliente {
+class Clientes {
     private String cedula;
     private String nombre;
 public Clientes(String cedula,String nombre){

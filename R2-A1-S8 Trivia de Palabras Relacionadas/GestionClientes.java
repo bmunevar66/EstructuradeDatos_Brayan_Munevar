@@ -13,7 +13,7 @@ System.out.println("2. Lista de Clientes");
 System.out.println("3. Salir");
 
 {
-  opcion = Interger.parseInt(scanner.nextLine());
+  opcion = Integer.parseInt(scanner.nextLine());
     switch (opcion) {
       case 1: //Opcion de insertar cliente
         System.out.print("Digite la Cedula del cliente: ");
@@ -30,8 +30,8 @@ System.out.println("3. Salir");
       case 3: // opcion salir
         System.out.println("Se cerro el programa");
     break;
-    default;
-        System.out.println(Opcion no valida. Intente de nuevo");
+    default:
+        System.out.println("Opcion no valida. Intente de nuevo");
           }
         }
     }while (opcion !=3);

@@ -1,8 +1,8 @@
 //Clase principal 
-public class GestionClientes{
+public class GestionClientes1{
 public static void main(String[] args){
 java.util.Scanner scanner = new java.util.Scanner(System.in);
-ListaClientes lista = new ListaClientes();
+ListaClientes1 lista = new ListaClientes1();
 int opcion;
 
 //Menu de opciones

@@ -1,10 +1,10 @@
 // Clase que implementa la lista simple
-class ListaClientes {
-    private Nodo primero;  // Puntero al primer nodo de la lista
+class ListaClientes1 {
+    private Nodo1 primero;  // Puntero al primer nodo de la lista
     private int tamaño;   // Contador de elementos en la lista
     
     //Constructor de la lista simple
-    public ListaClientes() {
+    public ListaClientes1() {
         this.primero = null;
         this.tamaño = 0;
     }
@@ -21,7 +21,7 @@ class ListaClientes {
     }
     //Inserta un nuevo cliente en la lista de forma ordenada por cedula
     public void insertarOrden(Clientes cliente) {
-        Nodo nuevoNodo = new Nodo(cliente);
+        Nodo1 nuevoNodo = new Nodo1(cliente);
         
         // Si la lista esta vacia o el nuevo cliente debe ir al principio
         if (estaVacia() || cliente.getCedula().compareTo(primero.getCliente().getCedula()) < 0) {
@@ -29,8 +29,8 @@ class ListaClientes {
             primero = nuevoNodo;
         } else {
             // Buscar la posicion correcta para insertar
-            Nodo actual = primero;
-            Nodo anterior = null;
+            Nodo1 actual = primero;
+            Nodo1 anterior = null;
             
             while (actual != null && cliente.getCedula().compareTo(actual.getCliente().getCedula()) > 0) {
                 anterior = actual;
@@ -62,7 +62,7 @@ class ListaClientes {
         System.out.println("\nListado de Clientes:");
         System.out.println("----------");
         
-        Nodo actual = primero;
+        Nodo1 actual = primero;
         int contador = 1;
         
         while (actual != null) {

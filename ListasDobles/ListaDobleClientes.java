@@ -1,6 +1,6 @@
 class ListaDobleClientes {
-    private Nodo primero;  // Puntero al primer nodo de la lista
-    private Nodo ultimo;    // Puntero al ultimo nodo de la lista
+    private Nodo2 primero;  // Puntero al primer nodo de la lista
+    private Nodo2 ultimo;    // Puntero al ultimo nodo de la lista
     private int tamaño;        // Contador de elementos en la lista
 
     //Constructor de la lista doble
@@ -21,7 +21,7 @@ class ListaDobleClientes {
     }
     //Inserta un nuevo cliente en la lista de forma ordenada por cedula
     public void insertarOrdenado(Cliente cliente) {
-        Nodo nuevoNodo = new Nodo(cliente);
+        Nodo2 nuevoNodo = new Nodo2(cliente);
         
         // Si la lista esta vacia
         if (estaVacia()) {
@@ -42,7 +42,7 @@ class ListaDobleClientes {
         } 
         // Si el nuevo nodo debe ir en algun lugar intermedio
         else {
-            Nodo actual = primero;
+            Nodo2 actual = primero;
             
             // Buscar la posicion correcta para insertar
             while (actual != null && cliente.getCedula().compareTo(actual.getCliente().getCedula()) > 0) {
@@ -75,7 +75,7 @@ class ListaDobleClientes {
         System.out.println("\nListado de Clientes (de izquierda a derecha):");
         System.out.println("--------------------------------------------");
         
-        Nodo actual = primero;
+        Nodo2 actual = primero;
         int contador = 1;
         
         while (actual != null) {
@@ -98,7 +98,7 @@ class ListaDobleClientes {
         System.out.println("\nListado de Clientes (de derecha a izquierda):");
         System.out.println("--------------------------------------------");
         
-        Nodo actual = ultimo;
+        Nodo2 actual = ultimo;
         int contador = 1;
         
         while (actual != null) {

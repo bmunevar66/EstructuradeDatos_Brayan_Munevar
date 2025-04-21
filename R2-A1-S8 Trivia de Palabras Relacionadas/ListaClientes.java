@@ -66,7 +66,7 @@ class ListaClientes {
         int contador = 1;
         
         while (actual != null) {
-            System.out.println(contador + ". Cédula: " + actual.getCliente().getCedula() + 
+            System.out.println(contador + ". Cedula: " + actual.getCliente().getCedula() + 
                               ", Nombre: " + actual.getCliente().getNombre());
             actual = actual.getSiguiente();
             contador++;

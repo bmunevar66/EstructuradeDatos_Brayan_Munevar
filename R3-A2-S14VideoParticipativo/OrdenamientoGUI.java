@@ -1,34 +1,33 @@
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.border.EmptyBorder;
+import java.awt.*;
 
-public class MetodosOrdenamiento extends JFrame {
+public class OrdenamientoGUI extends JFrame {
     private JTextField inputField;
     private JTextArea outputArea;
 
-    public MetodosOrdenamiento() {
+    public OrdenamientoGUI() {
         setTitle("Métodos de Ordenamiento");
-        setSize(500, 300);
+        setSize(600, 400);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+        setLayout(new BorderLayout());
 
         // Panel superior: entrada de datos
         JPanel topPanel = new JPanel(new FlowLayout());
+        topPanel.setBorder(new EmptyBorder(10, 10, 0, 10)); // margen superior
         topPanel.add(new JLabel("Ingrese los números separados por comas:"));
-        topPanel.setBorder(new EmptyBorder(10, 10, 0, 10));
-        inputField = new JTextField(25);
+        inputField = new JTextField(30);
         topPanel.add(inputField);
         add(topPanel, BorderLayout.NORTH);
 
-        // Panel central: resultados
-        outputArea = new JTextArea(8, 40);
+        // Área central: resultados
+        outputArea = new JTextArea(15, 50);
         outputArea.setEditable(false);
+        outputArea.setFont(new Font("Monospaced", Font.PLAIN, 12));
         add(new JScrollPane(outputArea), BorderLayout.CENTER);
 
-        // Panel inferior: botones de ordenamiento
+        // Panel inferior: botones
         JPanel buttonPanel = new JPanel(new FlowLayout());
 
         JButton burbujaBtn = new JButton("Burbuja");
@@ -62,39 +61,36 @@ public class MetodosOrdenamiento extends JFrame {
             }
 
             int[] copia = arreglo.clone();
+            StringBuilder log = new StringBuilder();
 
             switch (metodo) {
                 case "burbuja":
-                    burbuja(copia);
-                    outputArea.setText("Ordenado con Burbuja:\n" + mostrar(copia));
+                    log.append("Proceso del método Burbuja:\n");
+                    burbuja(copia, log);
                     break;
                 case "insercion":
-                    insercion(copia);
-                    outputArea.setText("Ordenado con Inserción:\n" + mostrar(copia));
+                    log.append("Proceso del método Inserción:\n");
+                    insercion(copia, log);
                     break;
                 case "quicksort":
-                    quicksort(copia, 0, copia.length - 1);
-                    outputArea.setText("Ordenado con Quicksort:\n" + mostrar(copia));
+                    log.append("Proceso del método Quicksort:\n");
+                    quicksort(copia, 0, copia.length - 1, log, 1);
                     break;
             }
+
+            log.append("\nResultado final:\n").append(arrayToString(copia));
+            outputArea.setText(log.toString());
 
         } catch (NumberFormatException ex) {
             outputArea.setText("Error: asegúrate de ingresar solo números separados por comas.");
         }
     }
 
-    private String mostrar(int[] arr) {
-        StringBuilder sb = new StringBuilder();
-        for (int num : arr) {
-            sb.append(num).append(" ");
-        }
-        return sb.toString();
-    }
-
-    // Métodos de ordenamiento
-    public static void burbuja(int[] arr) {
+    // Métodos de ordenamiento con proceso
+    public static void burbuja(int[] arr, StringBuilder log) {
         int n = arr.length;
         boolean cambio;
+        int paso = 1;
         do {
             cambio = false;
             for (int i = 0; i < n - 1; i++) {
@@ -102,6 +98,8 @@ public class MetodosOrdenamiento extends JFrame {
                     int temp = arr[i];
                     arr[i] = arr[i + 1];
                     arr[i + 1] = temp;
+                    log.append("Paso ").append(paso++).append(": ")
+                       .append(arrayToString(arr)).append("\n");
                     cambio = true;
                 }
             }
@@ -109,7 +107,8 @@ public class MetodosOrdenamiento extends JFrame {
         } while (cambio);
     }
 
-    public static void insercion(int[] arr) {
+    public static void insercion(int[] arr, StringBuilder log) {
+        int paso = 1;
         for (int i = 1; i < arr.length; i++) {
             int actual = arr[i];
             int j = i - 1;
@@ -118,18 +117,20 @@ public class MetodosOrdenamiento extends JFrame {
                 j--;
             }
             arr[j + 1] = actual;
+            log.append("Paso ").append(paso++).append(": ")
+               .append(arrayToString(arr)).append("\n");
         }
     }
 
-    public static void quicksort(int[] arr, int izquierda, int derecha) {
+    public static void quicksort(int[] arr, int izquierda, int derecha, StringBuilder log, int nivel) {
         if (izquierda < derecha) {
-            int indicePivote = particion(arr, izquierda, derecha);
-            quicksort(arr, izquierda, indicePivote - 1);
-            quicksort(arr, indicePivote + 1, derecha);
+            int indicePivote = particion(arr, izquierda, derecha, log, nivel);
+            quicksort(arr, izquierda, indicePivote - 1, log, nivel + 1);
+            quicksort(arr, indicePivote + 1, derecha, log, nivel + 1);
         }
     }
 
-    public static int particion(int[] arr, int izquierda, int derecha) {
+    public static int particion(int[] arr, int izquierda, int derecha, StringBuilder log, int nivel) {
         int pivote = arr[derecha];
         int i = izquierda - 1;
         for (int j = izquierda; j < derecha; j++) {
@@ -138,17 +139,27 @@ public class MetodosOrdenamiento extends JFrame {
                 int temp = arr[i];
                 arr[i] = arr[j];
                 arr[j] = temp;
+                log.append("Nivel ").append(nivel).append(" - intercambio: ")
+                   .append(arrayToString(arr)).append("\n");
             }
         }
         int temp = arr[i + 1];
         arr[i + 1] = arr[derecha];
         arr[derecha] = temp;
+        log.append("Nivel ").append(nivel).append(" - pivote colocado: ")
+           .append(arrayToString(arr)).append("\n");
         return i + 1;
     }
 
+    public static String arrayToString(int[] arr) {
+        StringBuilder sb = new StringBuilder();
+        for (int num : arr) {
+            sb.append(num).append(" ");
+        }
+        return sb.toString();
+    }
+
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            new MetodosOrdenamiento().setVisible(true);
-        });
+        SwingUtilities.invokeLater(() -> new OrdenamientoGUI().setVisible(true));
     }
 }

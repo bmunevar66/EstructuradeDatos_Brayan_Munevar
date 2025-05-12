@@ -4,16 +4,22 @@ public class MetodosOrdenamiento {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int[] arreglo = {5, 3, 8, 4, 2, 7, 1, 10, 6, 9};
+        System.out.print("Cuantos numero desea ordenar? ");
+        int cantidad = scanner.nextInt();
+        int[] arreglo = new int[cantidad];
+        for (int i = 0; i < cantidad; i++){
+            System.out.print("Ingrese el numero #" + (i + 1) + ": ");
+            arreglo[i] = scanner.nextInt();
+        }
         int opcion;
 
         do {
-            System.out.println("\n--- MENÚ DE ORDENAMIENTO ---");
-            System.out.println("1. Método Burbuja");
-            System.out.println("2. Método Inserción (Secuencial)");
-            System.out.println("3. Método Quicksort");
+            System.out.println("\n--- MENU DE ORDENAMIENTO ---");
+            System.out.println("1. Metodo Burbuja");
+            System.out.println("2. Metodo Insercion (Secuencial)");
+            System.out.println("3. Metodo Quicksort");
             System.out.println("4. Salir");
-            System.out.print("Seleccione una opción: ");
+            System.out.print("Seleccione una opcion: ");
             opcion = scanner.nextInt();
 
             int[] copia = arreglo.clone(); // Clonar arreglo original para no modificarlo permanentemente

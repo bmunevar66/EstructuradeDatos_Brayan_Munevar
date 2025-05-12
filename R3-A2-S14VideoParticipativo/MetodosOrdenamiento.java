@@ -2,21 +2,23 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.border.EmptyBorder;
 
-public class OrdenamientoGUI extends JFrame {
+public class MetodosOrdenamiento extends JFrame {
     private JTextField inputField;
     private JTextArea outputArea;
 
-    public OrdenamientoGUI() {
+    public MetodosOrdenamiento() {
         setTitle("Métodos de Ordenamiento");
         setSize(500, 300);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setLayout(new BorderLayout());
+        setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
         // Panel superior: entrada de datos
         JPanel topPanel = new JPanel(new FlowLayout());
         topPanel.add(new JLabel("Ingrese los números separados por comas:"));
+        topPanel.setBorder(new EmptyBorder(10, 10, 0, 10));
         inputField = new JTextField(25);
         topPanel.add(inputField);
         add(topPanel, BorderLayout.NORTH);
@@ -146,7 +148,7 @@ public class OrdenamientoGUI extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            new OrdenamientoGUI().setVisible(true);
+            new MetodosOrdenamiento().setVisible(true);
         });
     }
 }

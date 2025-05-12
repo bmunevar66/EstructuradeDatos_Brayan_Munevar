@@ -1,58 +1,95 @@
-import java.util.Scanner;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class MetodosOrdenamiento {
+public class MetodosOrdenamiento extends JFrame {
+    private JTextField inputField;
+    private JTextArea outputArea;
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Cuantos numero desea ordenar? ");
-        int cantidad = scanner.nextInt();
-        int[] arreglo = new int[cantidad];
-        for (int i = 0; i < cantidad; i++){
-            System.out.print("Ingrese el numero #" + (i + 1) + ": ");
-            arreglo[i] = scanner.nextInt();
-        }
-        int opcion;
+    public OrdenamientoGUI() {
+        setTitle("Métodos de Ordenamiento");
+        setSize(500, 300);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
 
-        do {
-            System.out.println("\n--- MENU DE ORDENAMIENTO ---");
-            System.out.println("1. Metodo Burbuja");
-            System.out.println("2. Metodo Insercion (Secuencial)");
-            System.out.println("3. Metodo Quicksort");
-            System.out.println("4. Salir");
-            System.out.print("Seleccione una opcion: ");
-            opcion = scanner.nextInt();
+        // Panel superior: entrada de datos
+        JPanel topPanel = new JPanel(new FlowLayout());
+        topPanel.add(new JLabel("Ingrese los números separados por comas:"));
+        inputField = new JTextField(25);
+        topPanel.add(inputField);
+        add(topPanel, BorderLayout.NORTH);
 
-            int[] copia = arreglo.clone(); // Clonar arreglo original para no modificarlo permanentemente
+        // Panel central: resultados
+        outputArea = new JTextArea(8, 40);
+        outputArea.setEditable(false);
+        add(new JScrollPane(outputArea), BorderLayout.CENTER);
 
-            switch (opcion) {
-                case 1:
-                    burbuja(copia);
-                    System.out.print("Ordenado con Burbuja: ");
-                    imprimir(copia);
-                    break;
-                case 2:
-                    insercion(copia);
-                    System.out.print("Ordenado con Inserción: ");
-                    imprimir(copia);
-                    break;
-                case 3:
-                    quicksort(copia, 0, copia.length - 1);
-                    System.out.print("Ordenado con Quicksort: ");
-                    imprimir(copia);
-                    break;
-                case 4:
-                    System.out.println("Saliendo...");
-                    break;
-                default:
-                    System.out.println("Opción no válida.");
-            }
+        // Panel inferior: botones de ordenamiento
+        JPanel buttonPanel = new JPanel(new FlowLayout());
 
-        } while (opcion != 4);
+        JButton burbujaBtn = new JButton("Burbuja");
+        JButton insercionBtn = new JButton("Inserción");
+        JButton quicksortBtn = new JButton("Quicksort");
 
-        scanner.close();
+        buttonPanel.add(burbujaBtn);
+        buttonPanel.add(insercionBtn);
+        buttonPanel.add(quicksortBtn);
+
+        add(buttonPanel, BorderLayout.SOUTH);
+
+        // Listeners
+        burbujaBtn.addActionListener(e -> ordenar("burbuja"));
+        insercionBtn.addActionListener(e -> ordenar("insercion"));
+        quicksortBtn.addActionListener(e -> ordenar("quicksort"));
     }
 
-    // Método Burbuja
+    private void ordenar(String metodo) {
+        String texto = inputField.getText();
+        if (texto.isEmpty()) {
+            outputArea.setText("Por favor ingrese números primero.");
+            return;
+        }
+
+        try {
+            String[] partes = texto.split(",");
+            int[] arreglo = new int[partes.length];
+            for (int i = 0; i < partes.length; i++) {
+                arreglo[i] = Integer.parseInt(partes[i].trim());
+            }
+
+            int[] copia = arreglo.clone();
+
+            switch (metodo) {
+                case "burbuja":
+                    burbuja(copia);
+                    outputArea.setText("Ordenado con Burbuja:\n" + mostrar(copia));
+                    break;
+                case "insercion":
+                    insercion(copia);
+                    outputArea.setText("Ordenado con Inserción:\n" + mostrar(copia));
+                    break;
+                case "quicksort":
+                    quicksort(copia, 0, copia.length - 1);
+                    outputArea.setText("Ordenado con Quicksort:\n" + mostrar(copia));
+                    break;
+            }
+
+        } catch (NumberFormatException ex) {
+            outputArea.setText("Error: asegúrate de ingresar solo números separados por comas.");
+        }
+    }
+
+    private String mostrar(int[] arr) {
+        StringBuilder sb = new StringBuilder();
+        for (int num : arr) {
+            sb.append(num).append(" ");
+        }
+        return sb.toString();
+    }
+
+    // Métodos de ordenamiento
     public static void burbuja(int[] arr) {
         int n = arr.length;
         boolean cambio;
@@ -66,11 +103,10 @@ public class MetodosOrdenamiento {
                     cambio = true;
                 }
             }
-            n--; // Optimización
+            n--;
         } while (cambio);
     }
 
-    // Método Inserción (Secuencial)
     public static void insercion(int[] arr) {
         for (int i = 1; i < arr.length; i++) {
             int actual = arr[i];
@@ -83,7 +119,6 @@ public class MetodosOrdenamiento {
         }
     }
 
-    // Método Quicksort
     public static void quicksort(int[] arr, int izquierda, int derecha) {
         if (izquierda < derecha) {
             int indicePivote = particion(arr, izquierda, derecha);
@@ -109,11 +144,10 @@ public class MetodosOrdenamiento {
         return i + 1;
     }
 
-    // Método para imprimir el arreglo
-    public static void imprimir(int[] arr) {
-        for (int num : arr) {
-            System.out.print(num + " ");
-        }
-        System.out.println();
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            new OrdenamientoGUI().setVisible(true);
+        });
     }
 }
+

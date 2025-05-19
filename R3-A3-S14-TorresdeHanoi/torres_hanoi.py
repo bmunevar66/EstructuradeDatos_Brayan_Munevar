@@ -42,14 +42,15 @@ ventana = tk.Tk()
 ventana.title("Simulación de Mudanza - Cajas en Mesas")
 ventana.geometry("600x500")
 ventana.resizable(False, False)
+ventana.configure(bg="aquamarine2")
 
-tk.Label(ventana, text="Simulación de Mudanza con Cajas", font=("Arial", 16, "bold")).pack(pady=10)
-tk.Label(ventana, text="Ingrese cuántas cajas desea mover:").pack()
+tk.Label(ventana, bg="aquamarine2", text="Simulación de Mudanza con Cajas", font=("Arial", 16, "bold")).pack(pady=10)
+tk.Label(ventana, bg="aquamarine2", text="Ingrese cuántas cajas desea mover:").pack()
 
 entry_discos = tk.Entry(ventana, width=10)
 entry_discos.pack(pady=5)
 
-tk.Button(ventana, text="Iniciar mudanza", command=resolver).pack(pady=10)
+tk.Button(ventana, background="white", text="Iniciar mudanza", command=resolver).pack(pady=10)
 
 texto_resultado = tk.Text(ventana, width=70, height=20)
 texto_resultado.pack(pady=10)

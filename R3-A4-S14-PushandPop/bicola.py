@@ -53,9 +53,10 @@ ventana = tk.Tk()
 ventana.title("Bicola - Interfaz Gráfica")
 ventana.geometry("500x400")
 ventana.resizable(False, False)
+ventana.configure(bg="gold")
 
 # Entrada de valor
-tk.Label(ventana, text="Ingrese un valor:").pack(pady=10)
+tk.Label(ventana, bg="gold", fg="black", text="Ingrese un dato:").pack(pady=10)
 entry_valor = tk.Entry(ventana, width=40)
 entry_valor.pack()
 
@@ -63,13 +64,13 @@ entry_valor.pack()
 frame_botones = tk.Frame(ventana)
 frame_botones.pack(pady=15)
 
-tk.Button(frame_botones, text="Insertar por la derecha ↓", command=insertar_derecha).grid(row=0, column=0, padx=5, pady=5)
-tk.Button(frame_botones, text="Insertar por la izquierda ↑", command=insertar_izquierda).grid(row=0, column=1, padx=5, pady=5)
-tk.Button(frame_botones, text="Eliminar por la derecha ↓", command=atender_derecha).grid(row=1, column=0, padx=5, pady=5)
-tk.Button(frame_botones, text="Eliminar por la izquierda ↑", command=atender_izquierda).grid(row=1, column=1, padx=5, pady=5)
+tk.Button(frame_botones, bg="white", activebackground="limegreen", activeforeground="white", borderwidth="3", text="Insertar por la derecha ↓", command=insertar_derecha).grid(row=0, column=0, padx=2, pady=2)
+tk.Button(frame_botones, bg="white", activebackground="limegreen", activeforeground="white", borderwidth="3", text="Insertar por la izquierda ↑", command=insertar_izquierda).grid(row=0, column=1, padx=2, pady=2)
+tk.Button(frame_botones, bg="white", activebackground="limegreen", activeforeground="white", borderwidth="3", text="Eliminar por la derecha ↓", command=atender_derecha).grid(row=1, column=0, padx=2, pady=2)
+tk.Button(frame_botones, bg="white", activebackground="limegreen", activeforeground="white", borderwidth="3", text="Eliminar por la izquierda ↑", command=atender_izquierda).grid(row=1, column=1, padx=2, pady=2)
 
 # Lista para mostrar elementos
-tk.Label(ventana, text="Contenido de la Bicola:").pack(pady=10)
+tk.Label(ventana, bg="gold", text="Contenido de la Bicola:").pack(pady=10)
 lista = tk.Listbox(ventana, width=50, height=10)
 lista.pack()
 
